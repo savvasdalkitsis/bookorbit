@@ -299,6 +299,26 @@ export class KoreaderRepository {
       .orderBy(schema.bookFileChapters.chapterIndex);
   }
 
+  async getChaptersWithFallback(bookFileId: number, bookId: number) {
+    let chapters = await this.getChapters(bookFileId);
+    if (chapters.length === 0) {
+      const otherFiles = await this.db
+        .select({ id: schema.bookFiles.id })
+        .from(schema.bookFiles)
+        .where(eq(schema.bookFiles.bookId, bookId));
+      for (const otherFile of otherFiles) {
+        if (otherFile.id !== bookFileId) {
+          const fallbackChapters = await this.getChapters(otherFile.id);
+          if (fallbackChapters.length > 0) {
+            chapters = fallbackChapters;
+            break;
+          }
+        }
+      }
+    }
+    return chapters;
+  }
+
   async getLastFileWriteTime(bookFileId: number): Promise<Date | null> {
     const [row] = await this.db
       .select({ writtenAt: schema.fileWriteLog.writtenAt })

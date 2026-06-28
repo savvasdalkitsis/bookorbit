@@ -226,7 +226,7 @@ export class KoreaderService {
         }
 
         if (chapterIndex === null) {
-          const chapters = await this.repo.getChapters(bookFile.id);
+          const chapters = await this.repo.getChaptersWithFallback(bookFile.id, bookFile.bookId);
           if (chapters.length > 0) {
             if (readingProg.koboLocationSource) {
               const cleanSource = readingProg.koboLocationSource.split('#')[0].split('?')[0];

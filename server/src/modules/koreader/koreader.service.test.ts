@@ -64,6 +64,7 @@ describe('KoreaderService', () => {
     findBookFileIdByBookId: ReturnType<typeof vi.fn>;
     getBookProgressForDashboard: ReturnType<typeof vi.fn>;
     getChapters: ReturnType<typeof vi.fn>;
+    getChaptersWithFallback: ReturnType<typeof vi.fn>;
     getLastFileWriteTime: ReturnType<typeof vi.fn>;
   };
   let mockChapterService: {
@@ -126,6 +127,7 @@ describe('KoreaderService', () => {
       findBookFileIdByBookId: vi.fn(),
       getBookProgressForDashboard: vi.fn(),
       getChapters: vi.fn(),
+      getChaptersWithFallback: vi.fn().mockImplementation((fileId) => mockRepo.getChapters(fileId)),
       getLastFileWriteTime: vi.fn(),
     };
 

@@ -1,9 +1,9 @@
 export type ReaderFormatGroup = "epub" | "pdf" | "cbx" | "audio";
 
-// Formats the reader can actually open. Used to show/hide Read/Open buttons.
 export const READER_OPENABLE_FORMATS = new Set([
   // epub reader (foliate)
   "epub",
+  "kepub",
   "mobi",
   "azw3",
   "azw",
@@ -25,6 +25,7 @@ export const READER_OPENABLE_FORMATS = new Set([
 
 export const FORMAT_TO_GROUP: Record<string, ReaderFormatGroup> = {
   epub: "epub",
+  kepub: "epub",
   mobi: "epub",
   azw3: "epub",
   azw: "epub",

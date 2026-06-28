@@ -89,7 +89,7 @@ export class KoreaderChapterExtractorService {
       .where(eq(bookFiles.id, bookFileId))
       .limit(1);
 
-    if (!file || file.format !== 'epub') {
+    if (!file || (file.format !== 'epub' && file.format !== 'kepub')) {
       return [];
     }
 
