@@ -6,6 +6,7 @@ import { UserDailyReadingQueryDto } from './dto/user-daily-reading-query.dto';
 import { UserGoalTrajectoryQueryDto } from './dto/user-goal-trajectory-query.dto';
 import { UserSessionTimelineQueryDto } from './dto/user-session-timeline-query.dto';
 import { UpdateUserSessionTimelineSessionDto } from './dto/update-user-session-timeline-session.dto';
+import { UserCalendarQueryDto } from './dto/user-calendar-query.dto';
 import { UserStatisticsFilterQueryDto } from './dto/user-statistics-filter-query.dto';
 import { UserStatisticsService } from './user-statistics.service';
 
@@ -21,6 +22,11 @@ export class UserStatisticsController {
   @Get('daily-reading')
   getDailyReading(@CurrentUser() user: RequestUser, @Query() query: UserDailyReadingQueryDto) {
     return this.userStatisticsService.getDailyReading(user, query);
+  }
+
+  @Get('calendar')
+  getCalendar(@CurrentUser() user: RequestUser, @Query() query: UserCalendarQueryDto) {
+    return this.userStatisticsService.getCalendar(user, query);
   }
 
   @Get('reading-heatmap')

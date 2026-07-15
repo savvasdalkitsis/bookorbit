@@ -5851,6 +5851,9 @@
         "title": "Kje berete",
         "emptyTitle": "Še ni aktivnosti branja",
         "emptyDescription": "Berite v spletu, KOReaderju ali na Kobu, da vidite razdelitev po virih."
+      },
+      "readingCalendar": {
+        "title": "Koledar branja"
       }
     }
   },
@@ -5936,7 +5939,10 @@
       "similarityHelp": "Only for Similar title and author matches. At least one author and the book type must also match. Lower finds more possible duplicates; higher requires closer titles. Identical files, ISBN, and exact metadata are checked separately.",
       "runScan": "Run scan",
       "rescan": "Rescan",
-      "status": { "queued": "Scan queued", "running": "Scanning books" },
+      "status": {
+        "queued": "Scan queued",
+        "running": "Scanning books"
+      },
       "groupsFound": "No duplicate groups | One duplicate group | {count} duplicate groups",
       "filter": "Match type",
       "allReasons": "All match types",
@@ -5980,7 +5986,10 @@
         "title": "Find duplicate books",
         "description": "Choose a library scope and similarity level, then run a scan. No books are changed until you explicitly confirm a deletion."
       },
-      "empty": { "title": "No duplicate groups found", "description": "No books matched the current scope, similarity level, and match filter." },
+      "empty": {
+        "title": "No duplicate groups found",
+        "description": "No books matched the current scope, similarity level, and match filter."
+      },
       "deleteDialog": {
         "title": "Permanently delete duplicate books?",
         "description": "This will permanently delete {count} selected book and its files. | This will permanently delete {count} selected book and its files. | This will permanently delete {count} selected books and their files.",
@@ -5995,7 +6004,10 @@
         "results": "Could not load duplicate groups.",
         "delete": "Could not delete the selected duplicate books."
       },
-      "pagination": { "label": "Duplicate groups pages", "page": "Page {page} of {total}" }
+      "pagination": {
+        "label": "Duplicate groups pages",
+        "page": "Page {page} of {total}"
+      }
     },
     "entityManager": {
       "unknown": "Neznano",

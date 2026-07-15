@@ -28,7 +28,7 @@ import {
 
 import { DEFAULT_LIBRARY_CHART_ORDER, DEFAULT_USER_CHART_ORDER, type StatisticsChartId } from '@bookorbit/types'
 
-export type StatisticsChartSize = '1x1' | '2x1' | '2x2' | '1x2' | '3x1' | '4x1'
+export type StatisticsChartSize = '1x1' | '2x1' | '2x2' | '1x2' | '3x1' | '4x1' | '4x2'
 export type StatisticsChartCategory = 'library' | 'user'
 
 export interface StatisticsChartMetaEntry {
@@ -152,6 +152,12 @@ export const STATISTICS_CHART_META: Record<StatisticsChartId, StatisticsChartMet
     icon: TrendingUp,
     size: '4x1',
     category: 'library',
+  },
+  'reading-calendar': {
+    label: 'Reading Calendar',
+    icon: Calendar,
+    size: '4x2',
+    category: 'user',
   },
   'reading-heatmap': {
     label: 'Reading Heatmap',

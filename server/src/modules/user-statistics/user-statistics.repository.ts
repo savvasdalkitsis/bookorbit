@@ -906,4 +906,49 @@ export class UserStatisticsRepository {
       return { deleted, inserted, since: sinceDay };
     });
   }
+
+  async getCalendarBooks(
+    userId: number,
+    isSuperuser: boolean,
+    filterLibraryIds: number[] | undefined,
+    sinceInclusive: Date,
+    untilExclusive: Date,
+    timeZone: string,
+  ): Promise<{ day: string; bookId: number; title: string | null; updatedAt: Date }[]> {
+    const accessible = await this.getAccessibleLibraryIds(userId, isSuperuser);
+    const libraryFilter = this.libraryFilter(this.intersectLibraryIds(accessible, filterLibraryIds));
+    const resolvedTimeZone = resolveTimeZone(timeZone, 'UTC');
+    const localDay = sql<string>`to_char(${readingSessions.startedAt} AT TIME ZONE ${resolvedTimeZone}, 'YYYY-MM-DD')`;
+
+    const sessions = this.db
+      .select({
+        day: localDay.as('day'),
+        bookId: readingSessions.bookId,
+        title: bookMetadata.title,
+        updatedAt: books.updatedAt,
+      })
+      .from(readingSessions)
+      .innerJoin(books, eq(books.id, readingSessions.bookId))
+      .leftJoin(bookMetadata, eq(bookMetadata.bookId, readingSessions.bookId))
+      .where(
+        and(
+          eq(readingSessions.userId, userId),
+          gte(readingSessions.startedAt, sinceInclusive),
+          lt(readingSessions.startedAt, untilExclusive),
+          libraryFilter,
+        ),
+      )
+      .as('sessions');
+
+    return this.db
+      .select({
+        day: sessions.day,
+        bookId: sessions.bookId,
+        title: sessions.title,
+        updatedAt: sessions.updatedAt,
+      })
+      .from(sessions)
+      .groupBy(sessions.day, sessions.bookId, sessions.title, sessions.updatedAt)
+      .orderBy(sessions.day);
+  }
 }
