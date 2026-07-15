@@ -5853,7 +5853,9 @@
         "emptyDescription": "Lees op het web, in KOReader of op Kobo om je bronverdeling te zien."
       },
       "readingCalendar": {
-        "title": "Leeskalender"
+        "title": "Leeskalender",
+        "completed": "Voltooid",
+        "inProgress": "Lopend"
       }
     }
   },

@@ -5778,7 +5778,9 @@
         "noDropOffDescription": "Every started book progressed through all funnel stages in this period."
       },
       "readingCalendar": {
-        "title": "Reading Calendar"
+        "title": "Reading Calendar",
+        "completed": "Completed",
+        "inProgress": "In Progress"
       },
       "readingClock": {
         "title": "Reading Clock",

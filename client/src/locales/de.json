@@ -5820,7 +5820,9 @@
         "noDropOffDescription": "Jedes begonnene Buch hat in diesem Zeitraum alle Trichterphasen durchlaufen."
       },
       "readingCalendar": {
-        "title": "Lesekalender"
+        "title": "Lesekalender",
+        "completed": "Abgeschlossen",
+        "inProgress": "In Bearbeitung"
       },
       "readingClock": {
         "title": "Leseuhr",

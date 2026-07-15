@@ -5853,7 +5853,9 @@
         "emptyDescription": "Leia na web, KOReader ou Kobo para ver sua distribuição de fontes."
       },
       "readingCalendar": {
-        "title": "Calendário de Leitura"
+        "title": "Calendário de Leitura",
+        "completed": "Concluído",
+        "inProgress": "Em Progresso"
       }
     }
   },

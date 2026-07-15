@@ -28,6 +28,12 @@ vi.mock('@/features/statistics/composables/useStatisticsConfig', () => ({
   }),
 }))
 
+vi.mock('@/components/ui/tooltip', () => ({
+  Tooltip: { name: 'Tooltip', template: '<div><slot /></div>' },
+  TooltipContent: { name: 'TooltipContent', template: '<div><slot /></div>' },
+  TooltipTrigger: { name: 'TooltipTrigger', template: '<div><slot /></div>' },
+}))
+
 vi.mock('@/features/book/components/BookCoverImage.vue', () => ({
   default: {
     name: 'BookCoverImage',

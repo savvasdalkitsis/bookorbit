@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, BookCheck, BookOpen } from '@lucide/vue'
 
 import BookCoverImage from '@/features/book/components/BookCoverImage.vue'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import ChartCard from '../ChartCard.vue'
 import { useUserReadingCalendar } from '../../composables/useUserReadingCalendar'
 
@@ -92,6 +93,13 @@ const calendarCells = computed(() => {
 
   return cells
 })
+
+function formatCellDate(dateStr: string) {
+  const parts = dateStr.split('-')
+  if (parts.length !== 3) return dateStr
+  const date = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))
+  return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
+}
 
 function handlePrevMonth() {
   if (month.value === 1) {
@@ -196,18 +204,42 @@ function handleNavigateToBook(bookId: number) {
             <div class="size-full">
               <template v-if="cell.books.length === 1">
                 <div class="relative size-full">
-                  <button
-                    type="button"
-                    class="size-full hover:scale-105 active:scale-95 cursor-pointer overflow-hidden transition-all duration-200"
-                    @click="handleNavigateToBook(cell.books[0].id)"
-                  >
-                    <BookCoverImage
-                      :book-id="cell.books[0].id"
-                      :version="cell.books[0].updatedAt"
-                      class="size-full object-cover"
-                      :alt="cell.books[0].title || ''"
-                    />
-                  </button>
+                  <Tooltip>
+                    <TooltipTrigger as-child>
+                      <button
+                        type="button"
+                        class="size-full hover:scale-105 active:scale-95 cursor-pointer overflow-hidden transition-all duration-200"
+                        @click="handleNavigateToBook(cell.books[0].id)"
+                      >
+                        <BookCoverImage
+                          :book-id="cell.books[0].id"
+                          :version="cell.books[0].updatedAt"
+                          class="size-full object-cover"
+                          :alt="cell.books[0].title || ''"
+                        />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <div class="text-xs space-y-1 p-1">
+                        <p class="font-semibold">{{ cell.books[0].title || 'Untitled' }}</p>
+                        <p class="text-muted-foreground flex items-center gap-1.5">
+                          <component
+                            :is="cell.books[0].isCompleted ? BookCheck : BookOpen"
+                            class="size-3.5"
+                            :class="cell.books[0].isCompleted ? 'text-emerald-500' : 'text-blue-500'"
+                          />
+                          <span>
+                            {{
+                              cell.books[0].isCompleted
+                                ? t('statistics.charts.readingCalendar.completed')
+                                : t('statistics.charts.readingCalendar.inProgress')
+                            }}
+                            on {{ formatCellDate(cell.key) }}
+                          </span>
+                        </p>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
                   <!-- Read Status Overlay Badge -->
                   <div class="absolute top-1.5 right-1.5 z-10 flex items-center justify-center rounded-full bg-black/60 p-1 pointer-events-none">
                     <component
@@ -220,32 +252,56 @@ function handleNavigateToBook(bookId: number) {
               </template>
               <template v-else-if="cell.books.length > 1">
                 <div class="grid size-full grid-cols-2 grid-rows-2 gap-0.5">
-                  <div v-for="(book, index) in cell.books.slice(0, 4)" :key="book.id" class="relative size-full overflow-hidden bg-muted/10">
-                    <button
-                      type="button"
-                      class="size-full hover:scale-105 active:scale-95 cursor-pointer transition-all duration-200"
-                      @click="handleNavigateToBook(book.id)"
-                    >
-                      <BookCoverImage :book-id="book.id" :version="book.updatedAt" class="size-full object-cover" :alt="book.title || ''" />
-                    </button>
-                    <!-- Read Status Overlay Badge -->
-                    <div class="absolute top-0.5 right-0.5 z-10 flex items-center justify-center rounded-full bg-black/60 p-0.5 pointer-events-none">
-                      <component
-                        :is="book.isCompleted ? BookCheck : BookOpen"
-                        class="size-2"
-                        :class="book.isCompleted ? 'text-emerald-500' : 'text-blue-500'"
-                      />
-                    </div>
-                    <!-- Overlay "+N" on the 4th item if books > 4 -->
-                    <button
-                      v-if="index === 3 && cell.books.length > 4"
-                      type="button"
-                      class="absolute inset-0 flex cursor-pointer select-none items-center justify-center bg-black/70 text-[10px] font-bold text-white transition-colors hover:bg-black/60"
-                      @click="handleNavigateToBook(book.id)"
-                    >
-                      +{{ cell.books.length - 4 }}
-                    </button>
-                  </div>
+                  <Tooltip v-for="(book, index) in cell.books.slice(0, 4)" :key="book.id">
+                    <TooltipTrigger as-child>
+                      <div class="relative size-full overflow-hidden bg-muted/10">
+                        <button
+                          type="button"
+                          class="size-full hover:scale-105 active:scale-95 cursor-pointer transition-all duration-200"
+                          @click="handleNavigateToBook(book.id)"
+                        >
+                          <BookCoverImage :book-id="book.id" :version="book.updatedAt" class="size-full object-cover" :alt="book.title || ''" />
+                        </button>
+                        <!-- Read Status Overlay Badge -->
+                        <div
+                          class="absolute top-0.5 right-0.5 z-10 flex items-center justify-center rounded-full bg-black/60 p-0.5 pointer-events-none"
+                        >
+                          <component
+                            :is="book.isCompleted ? BookCheck : BookOpen"
+                            class="size-2"
+                            :class="book.isCompleted ? 'text-emerald-500' : 'text-blue-500'"
+                          />
+                        </div>
+                        <!-- Overlay "+N" on the 4th item if books > 4 -->
+                        <button
+                          v-if="index === 3 && cell.books.length > 4"
+                          type="button"
+                          class="absolute inset-0 flex cursor-pointer select-none items-center justify-center bg-black/70 text-[10px] font-bold text-white transition-colors hover:bg-black/60"
+                          @click="handleNavigateToBook(book.id)"
+                        >
+                          +{{ cell.books.length - 4 }}
+                        </button>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <div class="text-xs space-y-1 p-1">
+                        <p class="font-semibold">{{ book.title || 'Untitled' }}</p>
+                        <p class="text-muted-foreground flex items-center gap-1.5">
+                          <component
+                            :is="book.isCompleted ? BookCheck : BookOpen"
+                            class="size-3.5"
+                            :class="book.isCompleted ? 'text-emerald-500' : 'text-blue-500'"
+                          />
+                          <span>
+                            {{
+                              book.isCompleted ? t('statistics.charts.readingCalendar.completed') : t('statistics.charts.readingCalendar.inProgress')
+                            }}
+                            on {{ formatCellDate(cell.key) }}
+                          </span>
+                        </p>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
                   <!-- If less than 4 books, fill empty slots -->
                   <div
                     v-for="i in Math.max(0, 4 - cell.books.length)"
