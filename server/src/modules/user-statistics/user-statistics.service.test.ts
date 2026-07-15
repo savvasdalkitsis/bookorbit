@@ -702,7 +702,14 @@ describe('UserStatisticsService', () => {
       libraryIds: [],
     });
 
-    expect(repo.getCalendarBooks).toHaveBeenCalledWith(123, false, [], new Date(Date.UTC(2026, 3, 1)), new Date(Date.UTC(2026, 4, 1)), 'UTC');
+    expect(repo.getCalendarBooks).toHaveBeenCalledWith(
+      123,
+      false,
+      [],
+      new Date('2026-03-25T00:00:00.000Z'),
+      new Date('2026-05-15T00:00:00.000Z'),
+      'UTC',
+    );
     expect(result).toEqual([
       {
         day: '2026-04-06',

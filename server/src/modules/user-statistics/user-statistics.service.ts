@@ -654,8 +654,12 @@ export class UserStatisticsService {
       }
       const endMonthStr = `${nextYear}-${String(nextMonth).padStart(2, '0')}-01`;
 
-      const sinceInclusive = toTimeZoneStartOfDay(startMonthStr, timeZone);
-      const untilExclusive = toTimeZoneStartOfDay(endMonthStr, timeZone);
+      const monthStart = toTimeZoneStartOfDay(startMonthStr, timeZone);
+      const monthEnd = toTimeZoneStartOfDay(endMonthStr, timeZone);
+
+      // Pad range by 7 days before and 14 days after to populate all visible grid filler cells
+      const sinceInclusive = new Date(monthStart.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const untilExclusive = new Date(monthEnd.getTime() + 14 * 24 * 60 * 60 * 1000);
 
       const rows = await this.repo.getCalendarBooks(user.id, user.isSuperuser, query.libraryIds, sinceInclusive, untilExclusive, timeZone);
 
