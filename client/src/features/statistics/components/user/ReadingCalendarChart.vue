@@ -219,7 +219,10 @@ function handleNavigateToBook(bookId: number) {
                         />
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent class="bg-slate-800/95 text-slate-100 border border-slate-700/80 shadow-md [&_.rotate-45]:hidden font-sans">
+                    <TooltipContent
+                      hide-arrow
+                      class="bg-white/95 text-slate-900 border border-slate-200 shadow-md dark:bg-slate-800/95 dark:text-slate-100 dark:border-slate-700/80 font-sans"
+                    >
                       <div class="text-xs space-y-1 p-1">
                         <p class="font-semibold">{{ cell.books[0].title || 'Untitled' }}</p>
                         <p class="text-muted-foreground flex items-center gap-1.5">
@@ -283,7 +286,10 @@ function handleNavigateToBook(bookId: number) {
                         </button>
                       </div>
                     </TooltipTrigger>
-                    <TooltipContent class="bg-slate-800/95 text-slate-100 border border-slate-700/80 shadow-md [&_.rotate-45]:hidden font-sans">
+                    <TooltipContent
+                      hide-arrow
+                      class="bg-white/95 text-slate-900 border border-slate-200 shadow-md dark:bg-slate-800/95 dark:text-slate-100 dark:border-slate-700/80 font-sans"
+                    >
                       <div class="text-xs space-y-1 p-1">
                         <p class="font-semibold">{{ book.title || 'Untitled' }}</p>
                         <p class="text-muted-foreground flex items-center gap-1.5">
