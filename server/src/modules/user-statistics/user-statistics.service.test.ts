@@ -691,8 +691,8 @@ describe('UserStatisticsService', () => {
     const updatedAt = new Date('2026-04-06T10:00:00.000Z');
     const repo = {
       getCalendarBooks: vi.fn().mockResolvedValue([
-        { day: '2026-04-06', bookId: 10, title: 'Book A', updatedAt },
-        { day: '2026-04-06', bookId: 20, title: 'Book B', updatedAt },
+        { day: '2026-04-06', bookId: 10, title: 'Book A', updatedAt, isCompleted: false },
+        { day: '2026-04-06', bookId: 20, title: 'Book B', updatedAt, isCompleted: true },
       ]),
     };
     const service = new UserStatisticsService(repo as any);
@@ -707,8 +707,8 @@ describe('UserStatisticsService', () => {
       {
         day: '2026-04-06',
         books: [
-          { id: 10, title: 'Book A', updatedAt: updatedAt.toISOString() },
-          { id: 20, title: 'Book B', updatedAt: updatedAt.toISOString() },
+          { id: 10, title: 'Book A', updatedAt: updatedAt.toISOString(), isCompleted: false },
+          { id: 20, title: 'Book B', updatedAt: updatedAt.toISOString(), isCompleted: true },
         ],
       },
     ]);

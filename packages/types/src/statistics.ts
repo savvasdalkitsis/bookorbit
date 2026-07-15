@@ -281,6 +281,7 @@ export interface UserCalendarBook {
   id: number;
   title: string | null;
   updatedAt: string;
+  isCompleted: boolean;
 }
 
 export interface UserCalendarDay {

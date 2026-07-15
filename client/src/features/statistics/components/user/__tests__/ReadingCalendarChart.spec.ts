@@ -72,7 +72,7 @@ describe('ReadingCalendarChart', () => {
     mockData.value = [
       {
         day: '2026-07-15',
-        books: [{ id: 101, title: 'Test Book 101', updatedAt: '2026-07-15T10:00:00.000Z' }],
+        books: [{ id: 101, title: 'Test Book 101', updatedAt: '2026-07-15T10:00:00.000Z', isCompleted: false }],
       },
     ]
 
@@ -89,11 +89,11 @@ describe('ReadingCalendarChart', () => {
       {
         day: '2026-07-15',
         books: [
-          { id: 101, title: 'Book 101', updatedAt: '2026-07-15T12:00:00.000Z' },
-          { id: 102, title: 'Book 102', updatedAt: '2026-07-15T12:00:00.000Z' },
-          { id: 103, title: 'Book 103', updatedAt: '2026-07-15T12:00:00.000Z' },
-          { id: 104, title: 'Book 104', updatedAt: '2026-07-15T12:00:00.000Z' },
-          { id: 105, title: 'Book 105', updatedAt: '2026-07-15T12:00:00.000Z' },
+          { id: 101, title: 'Book 101', updatedAt: '2026-07-15T12:00:00.000Z', isCompleted: false },
+          { id: 102, title: 'Book 102', updatedAt: '2026-07-15T12:00:00.000Z', isCompleted: false },
+          { id: 103, title: 'Book 103', updatedAt: '2026-07-15T12:00:00.000Z', isCompleted: false },
+          { id: 104, title: 'Book 104', updatedAt: '2026-07-15T12:00:00.000Z', isCompleted: false },
+          { id: 105, title: 'Book 105', updatedAt: '2026-07-15T12:00:00.000Z', isCompleted: false },
         ],
       },
     ]
@@ -114,11 +114,11 @@ describe('ReadingCalendarChart', () => {
       {
         day: '2026-07-15',
         books: [
-          { id: 101, title: 'Book 101', updatedAt: '2026-07-15T12:00:00.000Z' },
-          { id: 102, title: 'Book 102', updatedAt: '2026-07-15T12:00:00.000Z' },
-          { id: 103, title: 'Book 103', updatedAt: '2026-07-15T12:00:00.000Z' },
-          { id: 104, title: 'Book 104', updatedAt: '2026-07-15T12:00:00.000Z' },
-          { id: 105, title: 'Book 105', updatedAt: '2026-07-15T12:00:00.000Z' },
+          { id: 101, title: 'Book 101', updatedAt: '2026-07-15T12:00:00.000Z', isCompleted: false },
+          { id: 102, title: 'Book 102', updatedAt: '2026-07-15T12:00:00.000Z', isCompleted: false },
+          { id: 103, title: 'Book 103', updatedAt: '2026-07-15T12:00:00.000Z', isCompleted: false },
+          { id: 104, title: 'Book 104', updatedAt: '2026-07-15T12:00:00.000Z', isCompleted: false },
+          { id: 105, title: 'Book 105', updatedAt: '2026-07-15T12:00:00.000Z', isCompleted: false },
         ],
       },
     ]

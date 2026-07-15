@@ -670,6 +670,7 @@ export class UserStatisticsService {
           id: row.bookId,
           title: row.title,
           updatedAt: row.updatedAt.toISOString(),
+          isCompleted: row.isCompleted,
         });
       }
 

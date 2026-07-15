@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight } from '@lucide/vue'
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, BookCheck, BookOpen } from '@lucide/vue'
 
 import BookCoverImage from '@/features/book/components/BookCoverImage.vue'
 import ChartCard from '../ChartCard.vue'
@@ -195,18 +195,28 @@ function handleNavigateToBook(bookId: number) {
             <!-- Books read content -->
             <div class="size-full">
               <template v-if="cell.books.length === 1">
-                <button
-                  type="button"
-                  class="size-full hover:scale-105 active:scale-95 cursor-pointer overflow-hidden transition-all duration-200"
-                  @click="handleNavigateToBook(cell.books[0].id)"
-                >
-                  <BookCoverImage
-                    :book-id="cell.books[0].id"
-                    :version="cell.books[0].updatedAt"
-                    class="size-full object-cover"
-                    :alt="cell.books[0].title || ''"
-                  />
-                </button>
+                <div class="relative size-full">
+                  <button
+                    type="button"
+                    class="size-full hover:scale-105 active:scale-95 cursor-pointer overflow-hidden transition-all duration-200"
+                    @click="handleNavigateToBook(cell.books[0].id)"
+                  >
+                    <BookCoverImage
+                      :book-id="cell.books[0].id"
+                      :version="cell.books[0].updatedAt"
+                      class="size-full object-cover"
+                      :alt="cell.books[0].title || ''"
+                    />
+                  </button>
+                  <!-- Read Status Overlay Badge -->
+                  <div class="absolute top-1.5 right-1.5 z-10 flex items-center justify-center rounded-full bg-black/60 p-1 pointer-events-none">
+                    <component
+                      :is="cell.books[0].isCompleted ? BookCheck : BookOpen"
+                      class="size-3"
+                      :class="cell.books[0].isCompleted ? 'text-emerald-500' : 'text-blue-500'"
+                    />
+                  </div>
+                </div>
               </template>
               <template v-else-if="cell.books.length > 1">
                 <div class="grid size-full grid-cols-2 grid-rows-2 gap-0.5">
@@ -218,6 +228,14 @@ function handleNavigateToBook(bookId: number) {
                     >
                       <BookCoverImage :book-id="book.id" :version="book.updatedAt" class="size-full object-cover" :alt="book.title || ''" />
                     </button>
+                    <!-- Read Status Overlay Badge -->
+                    <div class="absolute top-0.5 right-0.5 z-10 flex items-center justify-center rounded-full bg-black/60 p-0.5 pointer-events-none">
+                      <component
+                        :is="book.isCompleted ? BookCheck : BookOpen"
+                        class="size-2"
+                        :class="book.isCompleted ? 'text-emerald-500' : 'text-blue-500'"
+                      />
+                    </div>
                     <!-- Overlay "+N" on the 4th item if books > 4 -->
                     <button
                       v-if="index === 3 && cell.books.length > 4"
