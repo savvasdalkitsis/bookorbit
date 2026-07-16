@@ -92,7 +92,8 @@
       "mobileSummary": "Thema: {theme} • Accent: {accent} • Achtergrond: {background}",
       "themeMode": {
         "light": "Licht",
-        "dark": "Donker"
+        "dark": "Donker",
+        "system": "System"
       },
       "theme": {
         "title": "Thema",
@@ -3063,7 +3064,9 @@
     },
     "jumpRail": {
       "jumpToSection": "Naar sectie springen",
-      "jumpTo": "Naar {label} springen"
+      "jumpTo": "Naar {label} springen",
+      "unknownDate": "Unknown date",
+      "unknownValue": "Unknown value"
     },
     "quickView": {
       "title": "Snelweergave boek",
@@ -4126,6 +4129,7 @@
         "display": "Weergave",
         "coverSize": "Omslaggrootte",
         "gridGap": "Rasterafstand",
+        "showJumpRails": "Show jump rails",
         "columnsHint": "Gebruik het paneel voor kolomzichtbaarheid in de tabelkop om kolommen te tonen of te verbergen.",
         "coverShape": "Omslagvorm",
         "circle": "Cirkel",
@@ -4152,7 +4156,8 @@
     },
     "themePicker": {
       "light": "Licht",
-      "dark": "Donker"
+      "dark": "Donker",
+      "system": "System"
     },
     "userAvatar": {
       "profilePicture": "Profielfoto",

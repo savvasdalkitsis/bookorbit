@@ -83,7 +83,8 @@
       "mobileSummary": "Theme: {theme} • Accent: {accent} • Background: {background}",
       "themeMode": {
         "light": "Light",
-        "dark": "Dark"
+        "dark": "Dark",
+        "system": "System"
       },
       "theme": {
         "title": "Theme",
@@ -3021,7 +3022,9 @@
     },
     "jumpRail": {
       "jumpToSection": "Jump to section",
-      "jumpTo": "Jump to {label}"
+      "jumpTo": "Jump to {label}",
+      "unknownDate": "Unknown date",
+      "unknownValue": "Unknown value"
     },
     "quickView": {
       "title": "Book quick view",
@@ -4084,6 +4087,7 @@
         "display": "Display",
         "coverSize": "Cover size",
         "gridGap": "Grid gap",
+        "showJumpRails": "Show jump rails",
         "columnsHint": "Use the column visibility panel in the table header to show or hide columns.",
         "coverShape": "Cover shape",
         "circle": "Circle",
@@ -4110,7 +4114,8 @@
     },
     "themePicker": {
       "light": "Light",
-      "dark": "Dark"
+      "dark": "Dark",
+      "system": "System"
     },
     "userAvatar": {
       "profilePicture": "Profile picture",

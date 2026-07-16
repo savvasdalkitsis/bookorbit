@@ -92,7 +92,8 @@
       "mobileSummary": "Tema: {theme} • Destaque: {accent} • Fundo: {background}",
       "themeMode": {
         "light": "Claro",
-        "dark": "Escuro"
+        "dark": "Escuro",
+        "system": "System"
       },
       "theme": {
         "title": "Tema",
@@ -3063,7 +3064,9 @@
     },
     "jumpRail": {
       "jumpToSection": "Pular para a seção",
-      "jumpTo": "Pular para {label}"
+      "jumpTo": "Pular para {label}",
+      "unknownDate": "Unknown date",
+      "unknownValue": "Unknown value"
     },
     "quickView": {
       "title": "Visualização rápida do livro",
@@ -4126,6 +4129,7 @@
         "display": "Exibição",
         "coverSize": "Tamanho da capa",
         "gridGap": "Espaçamento da grade",
+        "showJumpRails": "Show jump rails",
         "columnsHint": "Use o painel de visibilidade de colunas no cabeçalho da tabela para mostrar ou ocultar colunas.",
         "coverShape": "Formato da capa",
         "circle": "Círculo",
@@ -4152,7 +4156,8 @@
     },
     "themePicker": {
       "light": "Claro",
-      "dark": "Escuro"
+      "dark": "Escuro",
+      "system": "System"
     },
     "userAvatar": {
       "profilePicture": "Foto de perfil",
