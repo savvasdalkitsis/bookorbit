@@ -129,7 +129,7 @@ describe('useStatisticsConfig - persist', () => {
     init()
 
     const chartIds = orderedUserCharts.value.map((chart) => chart.id)
-    expect(chartIds[1]).toBe('peak-reading-hours')
+    expect(chartIds[2]).toBe('peak-reading-hours')
     expect(chartIds.at(-1)).toBe('reading-source-distribution')
   })
 })

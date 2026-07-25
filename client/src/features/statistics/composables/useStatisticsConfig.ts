@@ -65,7 +65,7 @@ function withUserChartOrder(entries: ChartConfigEntry[], order: StatisticsChartI
 }
 
 function migrateLegacyUserChartOrder(entries: ChartConfigEntry[]): ChartConfigEntry[] {
-  const userOrder = chartIdsByOrder(entries, userChartIdSet)
+  const userOrder = chartIdsByOrder(entries, userChartIdSet).filter((id) => id !== 'reading-calendar')
   if (!matchesOrder(userOrder, LEGACY_USER_CHART_ORDER_WITH_SOURCE_SECOND)) return entries
   return withUserChartOrder(entries, USER_CHART_IDS)
 }
