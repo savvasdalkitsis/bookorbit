@@ -93,13 +93,79 @@
       "themeMode": {
         "light": "Svetla",
         "dark": "Temna",
-        "system": "System"
+        "system": "Sistem"
       },
       "theme": {
         "title": "Tema",
         "colorScheme": {
           "label": "Barvna shema",
           "hint": "Svetel ali temen vmesnik"
+        },
+        "accents": {
+          "grey": "Grey",
+          "scarlet": "Scarlet",
+          "vermilion": "Vermilion",
+          "rose": "Rose",
+          "copper": "Copper",
+          "orange": "Orange",
+          "chartreuse": "Chartreuse",
+          "marigold": "Marigold",
+          "wasabi": "Wasabi",
+          "amber": "Amber",
+          "malachite": "Malachite",
+          "yellow": "Yellow",
+          "viridian": "Viridian",
+          "turquoise": "Turquoise",
+          "lime": "Lime",
+          "green": "Green",
+          "acid-green": "Acid Green",
+          "emerald": "Emerald",
+          "teal": "Teal",
+          "electric-blue": "Electric Blue",
+          "cyan": "Cyan",
+          "jade": "Jade",
+          "ultramarine": "Ultramarine",
+          "iris": "Iris",
+          "purple": "Purple",
+          "blue": "Blue",
+          "indigo": "Indigo",
+          "violet": "Violet",
+          "amethyst": "Amethyst",
+          "fuchsia": "Fuchsia",
+          "raspberry": "Raspberry",
+          "pink": "Pink",
+          "white": "White",
+          "rosewater": "Rosewater",
+          "salmon": "Salmon",
+          "coral": "Coral",
+          "sand": "Sand",
+          "peach": "Peach",
+          "pear": "Pear",
+          "flax": "Flax",
+          "sprout": "Sprout",
+          "butter": "Butter",
+          "aloe": "Aloe",
+          "lemon": "Lemon",
+          "foam": "Foam",
+          "aqua": "Aqua",
+          "celadon": "Celadon",
+          "sage": "Sage",
+          "pistachio": "Pistachio",
+          "mint": "Mint",
+          "seafoam": "Seafoam",
+          "baby-blue": "Baby Blue",
+          "powder": "Powder",
+          "sea-glass": "Sea Glass",
+          "bluebell": "Bluebell",
+          "cornflower": "Cornflower",
+          "thistle": "Thistle",
+          "periwinkle": "Periwinkle",
+          "wisteria": "Wisteria",
+          "lavender": "Lavender",
+          "mauve": "Mauve",
+          "orchid": "Orchid",
+          "rose-quartz": "Rose Quartz",
+          "blush": "Blush"
         },
         "accentColor": {
           "label": "Poudarjena barva",
@@ -3065,8 +3131,8 @@
     "jumpRail": {
       "jumpToSection": "Skoči na razdelek",
       "jumpTo": "Skoči na {label}",
-      "unknownDate": "Unknown date",
-      "unknownValue": "Unknown value"
+      "unknownDate": "Neznani datum",
+      "unknownValue": "Neznana vrednost"
     },
     "quickView": {
       "title": "Hitri pregled knjige",
@@ -4129,7 +4195,7 @@
         "display": "Prikaz",
         "coverSize": "Velikost naslovnice",
         "gridGap": "Razmik mreže",
-        "showJumpRails": "Show jump rails",
+        "showJumpRails": "Prikaži vrstico skokov",
         "columnsHint": "Uporabi ploščo za vidnost stolpcev v glavi tabele, da prikažeš ali skriješ stolpce.",
         "coverShape": "Oblika naslovnice",
         "circle": "Krog",
@@ -4157,7 +4223,7 @@
     "themePicker": {
       "light": "Svetla",
       "dark": "Temna",
-      "system": "System"
+      "system": "Sistem"
     },
     "userAvatar": {
       "profilePicture": "Profilna slika",
@@ -5868,7 +5934,7 @@
     "header": {
       "entityManager": "Upravitelj entitet",
       "bulkRename": "Množično preimenovanje",
-      "duplicateBooks": "Duplicate Books"
+      "duplicateBooks": "Podvoji knjigo"
     },
     "entityTypes": {
       "authors": "Avtorji",
@@ -5880,8 +5946,8 @@
       "series": "Zbirke"
     },
     "bulkRename": {
-      "previewToolbar": "Rename preview",
-      "renameSettings": "Rename settings",
+      "previewToolbar": "Preodgled preimenovanja",
+      "renameSettings": "Nastavitve preimenovanja",
       "library": "Knjižnica",
       "selectLibraryPlaceholder": "Izberi knjižnico...",
       "noEligibleLibraries": "Nobena knjižnica nima omogočenega preimenovanja datotek. Omogočite ga v nastavitvah knjižnice.",
@@ -5936,8 +6002,8 @@
       }
     },
     "bookDuplicates": {
-      "scanSettings": "Scan settings",
-      "title": "Duplicate Books",
+      "scanSettings": "Nastavitve skeniranja",
+      "title": "Podvoji knjige",
       "description": "Scan files and metadata for potential duplicate records. Nothing is deleted during a scan.",
       "scope": "Library scope",
       "allLibraries": "All accessible libraries",
