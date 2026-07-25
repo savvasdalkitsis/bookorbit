@@ -5923,6 +5923,11 @@
         "noDropOffTitle": "Kein Abbruch festgestellt",
         "noDropOffDescription": "Jedes begonnene Buch hat in diesem Zeitraum alle Trichterphasen durchlaufen."
       },
+      "readingCalendar": {
+        "title": "Lesekalender",
+        "completed": "Abgeschlossen",
+        "inProgress": "In Bearbeitung"
+      },
       "readingClock": {
         "title": "Leseuhr",
         "notEnoughData": "Für dieses Diagramm sind mindestens {count} Lesesitzungen erforderlich."

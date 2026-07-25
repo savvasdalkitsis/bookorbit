@@ -906,4 +906,53 @@ export class UserStatisticsRepository {
       return { deleted, inserted, since: sinceDay };
     });
   }
+
+  async getCalendarBooks(
+    userId: number,
+    isSuperuser: boolean,
+    filterLibraryIds: number[] | undefined,
+    sinceInclusive: Date,
+    untilExclusive: Date,
+    timeZone: string,
+  ): Promise<{ day: string; bookId: number; title: string | null; updatedAt: Date; isCompleted: boolean }[]> {
+    const accessible = await this.getAccessibleLibraryIds(userId, isSuperuser);
+    const libraryFilter = this.libraryFilter(this.intersectLibraryIds(accessible, filterLibraryIds));
+    const resolvedTimeZone = resolveTimeZone(timeZone, 'UTC');
+    const localDay = sql<string>`to_char(${readingSessions.startedAt} AT TIME ZONE ${resolvedTimeZone}, 'YYYY-MM-DD')`;
+
+    const sessions = this.db
+      .select({
+        day: localDay.as('day'),
+        bookId: readingSessions.bookId,
+        title: bookMetadata.title,
+        updatedAt: books.updatedAt,
+        status: userBookStatus.status,
+        finishedDay: sql<string | null>`to_char(${userBookStatus.finishedAt} AT TIME ZONE ${resolvedTimeZone}, 'YYYY-MM-DD')`.as('finished_day'),
+      })
+      .from(readingSessions)
+      .innerJoin(books, eq(books.id, readingSessions.bookId))
+      .leftJoin(bookMetadata, eq(bookMetadata.bookId, readingSessions.bookId))
+      .leftJoin(userBookStatus, and(eq(userBookStatus.bookId, readingSessions.bookId), eq(userBookStatus.userId, userId)))
+      .where(
+        and(
+          eq(readingSessions.userId, userId),
+          gte(readingSessions.startedAt, sinceInclusive),
+          lt(readingSessions.startedAt, untilExclusive),
+          libraryFilter,
+        ),
+      )
+      .as('sessions');
+
+    return this.db
+      .select({
+        day: sessions.day,
+        bookId: sessions.bookId,
+        title: sessions.title,
+        updatedAt: sessions.updatedAt,
+        isCompleted: sql<boolean>`coalesce(${sessions.status} = 'read' and ${sessions.finishedDay} = ${sessions.day}, false)`.as('is_completed'),
+      })
+      .from(sessions)
+      .groupBy(sessions.day, sessions.bookId, sessions.title, sessions.updatedAt, sessions.status, sessions.finishedDay)
+      .orderBy(sessions.day);
+  }
 }

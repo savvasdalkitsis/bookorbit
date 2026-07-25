@@ -4,6 +4,8 @@ import type {
   ChordDiagramData,
   ReadingSessionSource,
   ReadingSessionSourceBucket,
+  UserCalendarBook,
+  UserCalendarDay,
   UserCompletionLatencyDistribution,
   UserCompletionRaceBook,
   UserCompletionTimelinePoint,
@@ -27,7 +29,8 @@ import { READING_SESSION_SOURCE_BUCKETS, emptySourceBucketRecord, toReadingSessi
 
 import type { RequestUser } from '../../common/types/request-user';
 import { StatsCache } from '../../common/cache/stats-cache';
-import { resolveTimeZone } from '../../common/utils/timezone.utils';
+import { resolveTimeZone, toTimeZoneStartOfDay } from '../../common/utils/timezone.utils';
+import { UserCalendarQueryDto } from './dto/user-calendar-query.dto';
 import type { UserDailyReadingQueryDto } from './dto/user-daily-reading-query.dto';
 import type { UserGoalTrajectoryQueryDto } from './dto/user-goal-trajectory-query.dto';
 import type { UserSessionTimelineQueryDto } from './dto/user-session-timeline-query.dto';
@@ -611,6 +614,76 @@ export class UserStatisticsService {
     const days = query.days ?? 1825;
     const key = this.buildUserCacheKey('author-genre-chord', user, { libraries: this.normalizeLibraryIds(query.libraryIds), days });
     return this.cache.get(String(user.id), key, () => this.repo.getAuthorGenreChord(user.id, user.isSuperuser, query.libraryIds, days));
+  }
+
+  async getCalendar(user: RequestUser, query: UserCalendarQueryDto): Promise<UserCalendarDay[]> {
+    const timeZone = resolveTimeZone((user.settings as { timezone?: unknown } | undefined)?.timezone, 'UTC');
+
+    const now = new Date();
+    let year = query.year;
+    let month = query.month;
+    if (year === undefined || month === undefined) {
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+      }).formatToParts(now);
+      const tzYear = parts.find((p) => p.type === 'year')?.value;
+      const tzMonth = parts.find((p) => p.type === 'month')?.value;
+      if (year === undefined && tzYear) year = parseInt(tzYear, 10);
+      if (month === undefined && tzMonth) month = parseInt(tzMonth, 10);
+    }
+
+    year = year ?? now.getUTCFullYear();
+    month = month ?? now.getUTCMonth() + 1;
+
+    const key = this.buildUserCacheKey('calendar', user, {
+      libraries: this.normalizeLibraryIds(query.libraryIds),
+      year,
+      month,
+      timeZone,
+    });
+
+    return this.cache.get(String(user.id), key, async () => {
+      const startMonthStr = `${year}-${String(month).padStart(2, '0')}-01`;
+      let nextYear = year!;
+      let nextMonth = month! + 1;
+      if (nextMonth > 12) {
+        nextMonth = 1;
+        nextYear += 1;
+      }
+      const endMonthStr = `${nextYear}-${String(nextMonth).padStart(2, '0')}-01`;
+
+      const monthStart = toTimeZoneStartOfDay(startMonthStr, timeZone);
+      const monthEnd = toTimeZoneStartOfDay(endMonthStr, timeZone);
+
+      // Pad range by 7 days before and 14 days after to populate all visible grid filler cells
+      const sinceInclusive = new Date(monthStart.getTime() - 7 * 24 * 60 * 60 * 1000);
+      const untilExclusive = new Date(monthEnd.getTime() + 14 * 24 * 60 * 60 * 1000);
+
+      const rows = await this.repo.getCalendarBooks(user.id, user.isSuperuser, query.libraryIds, sinceInclusive, untilExclusive, timeZone);
+
+      const byDay = new Map<string, UserCalendarBook[]>();
+      for (const row of rows) {
+        let list = byDay.get(row.day);
+        if (!list) {
+          list = [];
+          byDay.set(row.day, list);
+        }
+        list.push({
+          id: row.bookId,
+          title: row.title,
+          updatedAt: row.updatedAt.toISOString(),
+          isCompleted: row.isCompleted,
+        });
+      }
+
+      const calendarDays: UserCalendarDay[] = [];
+      for (const [day, books] of byDay.entries()) {
+        calendarDays.push({ day, books });
+      }
+      return calendarDays;
+    });
   }
 
   async recomputeRecentDailyStats(days = 2) {

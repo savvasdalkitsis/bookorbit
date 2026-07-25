@@ -21,6 +21,7 @@ import type {
   UserReadingSourceDistribution,
   UserSessionArchetypePoint,
   UserStatisticsSummary,
+  UserCalendarDay,
   FormatDistributionItem,
   GenreDistributionItem,
   LibraryMetadataCompletenessItem,
@@ -129,6 +130,12 @@ export async function fetchUserStatisticsSummary(filters: StatisticsFilterConfig
   const res = await api(`/api/v1/user-statistics/summary${buildParams(filters)}`)
   if (!res.ok) throw new Error(`User statistics summary request failed: ${res.status}`)
   return res.json() as Promise<UserStatisticsSummary>
+}
+
+export async function fetchUserReadingCalendar(filters: StatisticsFilterConfig, year: number, month: number): Promise<UserCalendarDay[]> {
+  const res = await api(`/api/v1/user-statistics/calendar${buildParams(filters, { year: String(year), month: String(month) })}`)
+  if (!res.ok) throw new Error(`User reading calendar request failed: ${res.status}`)
+  return res.json() as Promise<UserCalendarDay[]>
 }
 
 export async function fetchUserReadingHeatmap(filters: StatisticsFilterConfig): Promise<UserDailyReadingStat[]> {

@@ -5881,6 +5881,11 @@
         "noDropOffTitle": "No drop-off observed",
         "noDropOffDescription": "Every started book progressed through all funnel stages in this period."
       },
+      "readingCalendar": {
+        "title": "Reading Calendar",
+        "completed": "Completed",
+        "inProgress": "In Progress"
+      },
       "readingClock": {
         "title": "Reading Clock",
         "notEnoughData": "Need at least {count} reading sessions for this chart."

@@ -5955,6 +5955,11 @@
         "title": "Onde Você Lê",
         "emptyTitle": "Nenhuma atividade de leitura ainda",
         "emptyDescription": "Leia na web, KOReader ou Kobo para ver sua distribuição de fontes."
+      },
+      "readingCalendar": {
+        "title": "Calendário de Leitura",
+        "completed": "Concluído",
+        "inProgress": "Em Progresso"
       }
     }
   },

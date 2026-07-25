@@ -5955,6 +5955,11 @@
         "title": "Kje berete",
         "emptyTitle": "Še ni aktivnosti branja",
         "emptyDescription": "Berite v spletu, KOReaderju ali na Kobu, da vidite razdelitev po virih."
+      },
+      "readingCalendar": {
+        "title": "Koledar branja",
+        "completed": "Dokončano",
+        "inProgress": "V teku"
       }
     }
   },

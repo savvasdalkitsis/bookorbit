@@ -28,6 +28,7 @@ const CHART_COMPONENTS: Record<StatisticsChartId, Component> = {
   'largest-books': defineAsyncComponent(() => import('./library/LargestBooksChart.vue')),
   'top-series': defineAsyncComponent(() => import('./library/TopSeriesChart.vue')),
   'publication-year-timeline': defineAsyncComponent(() => import('./library/PublicationYearTimelineChart.vue')),
+  'reading-calendar': defineAsyncComponent(() => import('./user/ReadingCalendarChart.vue')),
   'reading-heatmap': defineAsyncComponent(() => import('./user/ReadingHeatmapChart.vue')),
   'reading-source-distribution': defineAsyncComponent(() => import('./user/SourceDistributionChart.vue')),
   'peak-reading-hours': defineAsyncComponent(() => import('./user/PeakReadingHoursChart.vue')),
@@ -56,6 +57,7 @@ function tileClass(size: StatisticsChartSize): string {
   if (size === '1x2') return 'md:col-span-1 md:row-span-2'
   if (size === '3x1') return 'md:col-span-2 xl:col-span-3 md:row-span-1'
   if (size === '4x1') return 'md:col-span-2 xl:col-span-4 md:row-span-1'
+  if (size === '4x2') return 'md:col-span-2 xl:col-span-4 md:row-span-2'
   return 'md:col-span-1 md:row-span-1'
 }
 </script>

@@ -31,7 +31,8 @@ export type StatisticsChartId =
   | "acquisition-lag-scatter"
   | "largest-books"
   | "top-series"
-  | "publication-year-timeline";
+  | "publication-year-timeline"
+  | "reading-calendar";
 
 export type StatisticsGranularity = "monthly" | "yearly";
 export type StatisticsDateRange = "last-year" | "last-5-years" | "all-time";
@@ -78,6 +79,7 @@ export const DEFAULT_LIBRARY_CHART_ORDER: StatisticsChartId[] = [
 ];
 
 export const DEFAULT_USER_CHART_ORDER: StatisticsChartId[] = [
+  "reading-calendar",
   "reading-heatmap",
   "peak-reading-hours",
   "favorite-reading-days",
@@ -273,4 +275,16 @@ export interface StatisticsSummary {
   publicationYearMin: number | null;
   publicationYearMax: number | null;
   booksAddedThisYear: number;
+}
+
+export interface UserCalendarBook {
+  id: number;
+  title: string | null;
+  updatedAt: string;
+  isCompleted: boolean;
+}
+
+export interface UserCalendarDay {
+  day: string;
+  books: UserCalendarBook[];
 }
